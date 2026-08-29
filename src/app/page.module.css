@@ -12,4 +12,4 @@
 
 .form,.result{min-width:0}
 .shell{min-width:0;max-width:100vw;overflow-x:clip}
-@media(max-width:760px){.workspace{width:100%;min-width:0}.form{grid-template-columns:minmax(0,1fr)}.form>*{min-width:0}.dimensionGrid,.form fieldset{grid-template-columns:minmax(0,1fr)}.choice strong{white-space:normal}.footer span{max-width:100%;overflow-wrap:anywhere}}
+@media(max-width:760px){.workspace{width:100vw;max-width:100vw;min-width:0}.intro{min-width:0}.intro h1{overflow-wrap:anywhere}.form{grid-template-columns:minmax(0,1fr)}.form>*{min-width:0}.dimensionGrid,.form fieldset{grid-template-columns:minmax(0,1fr)}.choice strong{white-space:normal}.footer span{max-width:100%;overflow-wrap:anywhere}}
