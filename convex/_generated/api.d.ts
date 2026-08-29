@@ -9,6 +9,8 @@
  */
 
 import type * as briefs from "../briefs.js";
+import type * as configurations from "../configurations.js";
+import type * as configurator from "../configurator.js";
 
 import type {
   ApiFromModules,
@@ -18,6 +20,8 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   briefs: typeof briefs;
+  configurations: typeof configurations;
+  configurator: typeof configurator;
 }>;
 
 /**

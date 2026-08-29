@@ -29,19 +29,19 @@
 
 | Decision | Locked answer |
 |---|---|
-| One-sentence product | A guided AV discovery tool that turns client answers into an approved meeting-room requirement brief. |
+| One-sentence product | A one-page room configurator that turns dimensions, seats and Native/BYOD choice into an indicative AV bill of materials and INR budget band. |
 | The one person | An IT or facilities manager procuring one meeting room. |
 | The one moment | Before asking an AV vendor for a final design and quote. |
 | Current workaround | Verbal discussions plus a site-survey document, followed by clarification calls. |
-| Core action (user does X → gets Y) | The client answers relevant room questions → receives and approves a clear scope brief. |
-| The one outcome the product must deliver | An approved requirement brief that an AV consultant can use to begin BOM selection. |
-| Hard input or hard case | The client gives conflicting answers or does not know the budget. |
+| Core action (user does X → gets Y) | The client enters room dimensions, seats, Native/BYOD and email → receives an indicative BOM and total INR range on the same page. |
+| The one outcome the product must deliver | A category-level equipment list with quantities and an honest low-to-high budget band. |
+| Hard input or hard case | A room whose area and seat count point to different room tiers. |
 | Primary track | Revenue |
 | Riskiest assumption | Clients will complete a short guided discovery without Anantha conducting the interview. |
 | The 30-minute no-code test for it | Send an eight-question WhatsApp prototype to one of Clients A–C and check whether they finish without a call. |
 | First three users (names, where they are) | Confidential Clients A, B and C; reachable by WhatsApp, email and phone. |
 | Tuesday channel (where those users already gather) | Anantha's LinkedIn network and industry community. |
-| Personal artifact a user would screenshot | A Room Readiness summary showing agreed requirements and unresolved decisions. It is useful evidence, not a claimed viral loop. |
+| Personal artifact a user would screenshot | Their room-specific BOM and total indicative budget band. It is useful evidence, not a claimed viral loop. |
 | Saturday numbers I expect to report | 3 real first uses, 3 client conversations, live product quality L3, $0 revenue and 0 waitlist entries. |
 | Library lineage (card or proven build, if any) | None. |
 
@@ -492,7 +492,7 @@ It is Saturday 11:00 AM and the product is not submitted, or is submitted with n
 
 Explicitly outside this week's build:
 
-1. BOM generation, product recommendations, compatibility checking or tentative price calculations.
+1. Brand-specific product recommendations, compatibility certification or purchase quotations.
 2. XTEN, telephony, voice, scraping, arbitrary document upload, payments or waitlist collection.
 3. Multiple room types, multi-room projects, a builder dashboard, user roles or a general-purpose AI interviewer.
 
@@ -518,23 +518,24 @@ M1 — one ugly complete flow.
 
 ### implemented
 
-- Next.js 16 application shell with the Requirement Sign-off visual direction.
+- One-page room configurator with dimensions, seats, Native/BYOD mode and required email.
+- Deterministic small, medium and large room rules with indicative INR price bands.
+- Same-page BOM output with item, category, quantity, price range and total budget band.
 - Convex project with development and production deployments.
 - Vercel production project with Convex production URLs configured.
-- Convex `briefs` and `firstUseEvents` tables with indexed lookup fields.
-- One validated mutation that saves a draft brief and its first-use evidence in the same database transaction.
+- Convex `roomConfigurations` and `firstUseEvents` persistence with indexed lookup fields.
 
 ### working locally
 
-- The M0 shell passes ESLint, TypeScript and the production build.
-- Two in-memory Convex tests pass: complete brief creation and invalid-email rollback.
+- The configurator passes ESLint, TypeScript and the production build.
+- Five automated tests pass, including all three room tiers and database validation.
 
 ### live
 
-- Public shell: https://requirement-signoff.vercel.app
+- Working configurator: https://requirement-signoff.vercel.app
 - Public repository: https://github.com/Anantha18/requirement-signoff
 - Convex production deployment is ready.
-- The brief schema and create mutation are deployed to Convex production.
+- The room configuration schema and create mutation are deployed to Convex production.
 
 ### verified
 
@@ -548,14 +549,15 @@ M1 — one ugly complete flow.
 - The live URL returned HTTP 200 with the correct product title.
 - The public GitHub repository returned HTTP 200.
 - Convex production deployed successfully and Vercel has both public Convex URLs.
+- A production test created a 20 × 14 ft, 10-seat Native room BOM with a ₹4.25–8.65 lakh band.
 
 ### current blocker
 
-The web interface does not yet collect the eight answers or call the deployed brief-creation mutation. Approval actions are also not implemented.
+Indicative prices still need comparison with Anantha's tentative pricing catalogue before client use.
 
 ### next single action
 
-Write failing tests for deterministic brief generation, including unknown budget and conflicting call-mode answers.
+Compare each equipment price band with the tentative pricing catalogue and adjust any material mismatch.
 
 ## 15. decision log
 
@@ -570,3 +572,4 @@ Write failing tests for deterministic brief generation, including unknown budget
 | Sat 29 Aug 2026 | Explain display and microphone trade-offs in the questions | Client did not know why two displays are useful and noted that microphone choice changes cost | Q4 explains participant/content use; Q7 warns about installation-cost impact |
 | Sat 29 Aug 2026 | Accept the eight-question discovery set for M1 | Anantha confirmed the client's answers are enough to begin BOM selection | Manual brief completed; proceed to empty-app setup |
 | Sat 29 Aug 2026 | Complete M0 and start M1 | Live URL, public repo and Convex production were verified; the no-code test passed | Active milestone moves to the complete eight-question flow |
+| Sat 29 Aug 2026 | Replace Requirement Sign-off with a room BOM configurator | Builder explicitly requested a single form producing an indicative BOM and INR range | BOM generation enters M1; approval flow and eight-question brief leave the critical path |

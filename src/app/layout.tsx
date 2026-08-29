@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Manrope } from "next/font/google";
 import "./globals.css";
+import { ConvexClientProvider } from "./convex-client-provider";
 
 const consoleSans = Manrope({
   variable: "--font-console-sans",
@@ -14,9 +15,8 @@ const consoleMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Requirement Sign-off",
-  description:
-    "Agree on meeting-room requirements before AV equipment selection begins.",
+  title: "Room BOM Planner",
+  description: "Get an indicative AV bill of materials and budget band for one meeting room.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -25,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${consoleSans.variable} ${consoleMono.variable}`}
     >
-      <body>{children}</body>
+      <body><ConvexClientProvider>{children}</ConvexClientProvider></body>
     </html>
   );
 }

@@ -56,6 +56,27 @@ export const briefStatusValidator = v.union(
   v.literal("changes_requested"),
 );
 
+export const roomModeValidator = v.union(
+  v.literal("native"),
+  v.literal("byod"),
+);
+
+export const roomTierValidator = v.union(
+  v.literal("small"),
+  v.literal("medium"),
+  v.literal("large"),
+);
+
+export const bomItemValidator = v.object({
+  name: v.string(),
+  category: v.string(),
+  quantity: v.number(),
+  unitLow: v.number(),
+  unitHigh: v.number(),
+  low: v.number(),
+  high: v.number(),
+});
+
 const briefFields = {
   email: v.string(),
   capacity: v.number(),
@@ -77,11 +98,27 @@ export default defineSchema({
   briefs: defineTable(briefFields)
     .index("by_email", ["email"])
     .index("by_status", ["status"]),
+  roomConfigurations: defineTable({
+    email: v.string(),
+    lengthFt: v.number(),
+    widthFt: v.number(),
+    seats: v.number(),
+    mode: roomModeValidator,
+    tier: roomTierValidator,
+    areaSqFt: v.number(),
+    items: v.array(bomItemValidator),
+    totalLow: v.number(),
+    totalHigh: v.number(),
+  })
+    .index("by_email", ["email"])
+    .index("by_tier", ["tier"]),
   firstUseEvents: defineTable({
-    briefId: v.id("briefs"),
+    briefId: v.optional(v.id("briefs")),
+    configurationId: v.optional(v.id("roomConfigurations")),
     email: v.string(),
     completedAt: v.number(),
   })
     .index("by_briefId", ["briefId"])
+    .index("by_configurationId", ["configurationId"])
     .index("by_email", ["email"]),
 });
