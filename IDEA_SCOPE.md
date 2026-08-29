@@ -521,16 +521,20 @@ M1 — one ugly complete flow.
 - Next.js 16 application shell with the Requirement Sign-off visual direction.
 - Convex project with development and production deployments.
 - Vercel production project with Convex production URLs configured.
+- Convex `briefs` and `firstUseEvents` tables with indexed lookup fields.
+- One validated mutation that saves a draft brief and its first-use evidence in the same database transaction.
 
 ### working locally
 
 - The M0 shell passes ESLint, TypeScript and the production build.
+- Two in-memory Convex tests pass: complete brief creation and invalid-email rollback.
 
 ### live
 
 - Public shell: https://requirement-signoff.vercel.app
 - Public repository: https://github.com/Anantha18/requirement-signoff
 - Convex production deployment is ready.
+- The brief schema and create mutation are deployed to Convex production.
 
 ### verified
 
@@ -547,11 +551,11 @@ M1 — one ugly complete flow.
 
 ### current blocker
 
-The eight-question product flow, brief persistence and approval actions are not implemented yet.
+The web interface does not yet collect the eight answers or call the deployed brief-creation mutation. Approval actions are also not implemented.
 
 ### next single action
 
-Define the Convex schema for briefs and first-use events, starting with a failing schema/function test.
+Write failing tests for deterministic brief generation, including unknown budget and conflicting call-mode answers.
 
 ## 15. decision log
 
