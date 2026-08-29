@@ -1,8 +1,10 @@
 .shell {
   min-height: 100svh;
+  min-width: 0;
   display: grid;
   grid-template-rows: auto 1fr auto;
   color: var(--console-ink);
+  overflow-x: clip;
 }
 
 .header,
@@ -55,6 +57,7 @@
 
 .workspace {
   width: min(100%, 1120px);
+  min-width: 0;
   margin: auto;
   padding: clamp(64px, 10vw, 128px) clamp(20px, 5vw, 72px) 64px;
 }
@@ -87,6 +90,7 @@
   font-size: clamp(17px, 2vw, 20px);
   line-height: 1.55;
   text-wrap: pretty;
+  overflow-wrap: anywhere;
 }
 
 .signalPath {
@@ -211,6 +215,10 @@
   .footer {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .footer span {
+    overflow-wrap: anywhere;
   }
 }
 
