@@ -6,3 +6,4 @@
 - 2026-08-29: A user can now enter room details and receive a saved indicative AV BOM and INR budget band.
 - 2026-08-29: A user can now open the product at the named AV Room Configurator link.
 - 2026-08-29: A user can now add company and phone details and receive an Epson 6× rule-based display-size recommendation.
+- 2026-08-29: A new builder can now read a plain-English record of how this project went from an idea to a live URL.
