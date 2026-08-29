@@ -186,7 +186,19 @@
 
 @media (max-width: 720px) {
   .status { display: none; }
-  .workspace { padding-top: 72px; }
+  .workspace {
+    width: 100vw;
+    max-width: 100vw;
+    padding-top: 72px;
+  }
+
+  .copy,
+  .summary,
+  .signalPath {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
 
   .signalPath {
     grid-template-columns: 1fr;
