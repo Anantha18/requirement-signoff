@@ -521,6 +521,7 @@ M1 — one ugly complete flow.
 - One-page room configurator with dimensions, seats, Native/BYOD mode and required email.
 - Deterministic small, medium and large room rules with indicative INR price bands.
 - Same-page BOM output with item, category, quantity, price range and total budget band.
+- Optional company and contact-number capture, plus an Epson 6× presentation-rule display recommendation.
 - Convex project with development and production deployments.
 - Vercel production project with Convex production URLs configured.
 - Convex `roomConfigurations` and `firstUseEvents` persistence with indexed lookup fields.

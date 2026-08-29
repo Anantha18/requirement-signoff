@@ -21,6 +21,7 @@ export default function Home() {
       const response = await createConfiguration({
         lengthFt: Number(data.get("lengthFt")), widthFt: Number(data.get("widthFt")),
         seats: Number(data.get("seats")), mode: data.get("mode") as RoomMode, email: String(data.get("email")),
+        companyName: String(data.get("companyName") || ""), contactNumber: String(data.get("contactNumber") || ""),
       });
       setResult(response);
     } catch (caught) {
@@ -43,12 +44,14 @@ export default function Home() {
           <label className={styles.choice}><input type="radio" name="mode" value="native" defaultChecked/><span><strong>Native room system</strong><small>Start meetings from a room controller</small></span></label>
           <label className={styles.choice}><input type="radio" name="mode" value="byod"/><span><strong>BYOD</strong><small>Bring your own laptop and connect</small></span></label>
         </fieldset>
+        <label>Company name <span>optional</span><input name="companyName" type="text" autoComplete="organization" maxLength={120} placeholder="Company or organisation"/></label>
+        <label>Contact number <span>optional</span><input name="contactNumber" type="tel" autoComplete="tel" inputMode="tel" placeholder="+91 98765 43210"/></label>
         <label>Email <span>required</span><input name="email" type="email" autoComplete="email" placeholder="you@company.com" required/></label>
         <button type="submit" disabled={loading}>{loading ? "Building your BOM…" : "Build my room BOM"}<span aria-hidden="true">→</span></button>
         {error && <p className={styles.error} role="alert">{error}</p>}
       </form>
       {result && <section className={styles.result} aria-live="polite">
-        <div className={styles.resultHeading}><div><p className={styles.eyebrow}>02 · Indicative BOM</p><h2>{result.tier[0].toUpperCase()+result.tier.slice(1)} room · {result.areaSqFt} sq ft</h2></div><div className={styles.total}><span>Total budget band</span><strong>{money.format(result.totalLow)} – {money.format(result.totalHigh)}</strong></div></div>
+        <div className={styles.resultHeading}><div><p className={styles.eyebrow}>02 · Indicative BOM</p><h2>{result.tier[0].toUpperCase()+result.tier.slice(1)} room · {result.areaSqFt} sq ft</h2><p className={styles.displayRule}>Recommended display: <strong>{result.displaySizeInches} inches</strong> · Epson 6× presentation viewing rule</p></div><div className={styles.total}><span>Total budget band</span><strong>{money.format(result.totalLow)} – {money.format(result.totalHigh)}</strong></div></div>
         <div className={styles.tableWrap}><table><thead><tr><th>Item</th><th>Category</th><th>Qty</th><th>Indicative range</th></tr></thead><tbody>{result.items.map(item=><tr key={item.name}><td>{item.name}</td><td>{item.category}</td><td>{item.quantity}</td><td>{money.format(item.low)} – {money.format(item.high)}</td></tr>)}</tbody></table></div>
         <p className={styles.disclaimer}>Planning estimate only. Prices exclude tax and can vary by brand, availability, room conditions and installation.</p>
       </section>}

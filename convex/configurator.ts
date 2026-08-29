@@ -14,6 +14,7 @@ export type BomItem = {
 export type RoomConfiguration = {
   tier: RoomTier;
   areaSqFt: number;
+  displaySizeInches: number;
   items: BomItem[];
   totalLow: number;
   totalHigh: number;
@@ -35,10 +36,27 @@ function roomTier(areaSqFt: number, seats: number): RoomTier {
   return "large";
 }
 
-function smallRoom(mode: RoomMode): BomItem[] {
-  const common = [
-    item({ name: "55-inch commercial display", category: "Display", quantity: 1, unitLow: 45_000, unitHigh: 80_000 }),
-  ];
+export function presentationDisplaySize(lengthFt: number): number {
+  const verticalImageHeightInches = (lengthFt * 12) / 6;
+  const diagonalRatioForSixteenByTen = Math.sqrt(16 ** 2 + 10 ** 2) / 10;
+  return Math.ceil((verticalImageHeightInches * diagonalRatioForSixteenByTen) / 5) * 5;
+}
+
+function displayItem(displaySizeInches: number, quantity = 1): BomItem {
+  const [unitLow, unitHigh] = displaySizeInches <= 55
+    ? [45_000, 80_000]
+    : displaySizeInches <= 65
+      ? [70_000, 130_000]
+      : displaySizeInches <= 85
+        ? [120_000, 220_000]
+        : displaySizeInches <= 120
+          ? [200_000, 400_000]
+          : [450_000, 900_000];
+  return item({ name: `${displaySizeInches}-inch commercial display`, category: "Display", quantity, unitLow, unitHigh });
+}
+
+function smallRoom(mode: RoomMode, displaySizeInches: number): BomItem[] {
+  const common = [displayItem(displaySizeInches)];
 
   if (mode === "byod") {
     return [
@@ -57,10 +75,8 @@ function smallRoom(mode: RoomMode): BomItem[] {
   ];
 }
 
-function mediumRoom(mode: RoomMode): BomItem[] {
-  const common = [
-    item({ name: "65-inch commercial display", category: "Display", quantity: 1, unitLow: 70_000, unitHigh: 130_000 }),
-  ];
+function mediumRoom(mode: RoomMode, displaySizeInches: number): BomItem[] {
+  const common = [displayItem(displaySizeInches)];
 
   if (mode === "byod") {
     return [
@@ -80,9 +96,9 @@ function mediumRoom(mode: RoomMode): BomItem[] {
   ];
 }
 
-function largeRoom(mode: RoomMode, seats: number): BomItem[] {
+function largeRoom(mode: RoomMode, seats: number, displaySizeInches: number): BomItem[] {
   return [
-    item({ name: "75-inch commercial display", category: "Display", quantity: 2, unitLow: 120_000, unitHigh: 220_000 }),
+    displayItem(displaySizeInches, 2),
     item({
       name: mode === "native" ? "Native room compute" : "BYOD conferencing interface",
       category: "Compute",
@@ -114,11 +130,13 @@ export function configureRoom({
 }): RoomConfiguration {
   const areaSqFt = lengthFt * widthFt;
   const tier = roomTier(areaSqFt, seats);
-  const items = tier === "small" ? smallRoom(mode) : tier === "medium" ? mediumRoom(mode) : largeRoom(mode, seats);
+  const displaySizeInches = presentationDisplaySize(lengthFt);
+  const items = tier === "small" ? smallRoom(mode, displaySizeInches) : tier === "medium" ? mediumRoom(mode, displaySizeInches) : largeRoom(mode, seats, displaySizeInches);
 
   return {
     tier,
     areaSqFt,
+    displaySizeInches,
     items,
     totalLow: items.reduce((total, current) => total + current.low, 0),
     totalHigh: items.reduce((total, current) => total + current.high, 0),

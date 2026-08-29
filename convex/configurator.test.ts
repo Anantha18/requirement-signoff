@@ -12,6 +12,8 @@ describe("configureRoom", () => {
 
     expect(result.tier).toBe("small");
     expect(result.areaSqFt).toBe(120);
+    expect(result.displaySizeInches).toBe(50);
+    expect(result.items[0].name).toBe("50-inch commercial display");
     expect(result.items.map((item) => item.category)).toEqual([
       "Display",
       "Video",
@@ -35,6 +37,7 @@ describe("configureRoom", () => {
     });
 
     expect(result.tier).toBe("medium");
+    expect(result.displaySizeInches).toBe(80);
     expect(result.items).toEqual(
       expect.arrayContaining([
         expect.objectContaining({ name: "Native room compute and camera kit" }),
@@ -52,6 +55,7 @@ describe("configureRoom", () => {
     });
 
     expect(result.tier).toBe("large");
+    expect(result.displaySizeInches).toBe(70);
     expect(
       result.items.find((item) => item.name === "Ceiling microphone array")
         ?.quantity,
