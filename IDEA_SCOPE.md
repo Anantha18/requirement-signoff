@@ -12,7 +12,7 @@
 | Submission deadline | Sat 5 Sep 2026, 11:00 AM IST |
 | Demo | Sat 5 Sep 2026, 3:00 PM IST |
 | Current milestone | M1 |
-| Live URL | https://requirement-signoff.vercel.app |
+| Live URL | https://av-room-configurator.vercel.app |
 | Public repo | https://github.com/Anantha18/requirement-signoff |
 | Last updated | Sat 29 Aug 2026 |
 
@@ -532,7 +532,7 @@ M1 — one ugly complete flow.
 
 ### live
 
-- Working configurator: https://requirement-signoff.vercel.app
+- Working configurator: https://av-room-configurator.vercel.app
 - Public repository: https://github.com/Anantha18/requirement-signoff
 - Convex production deployment is ready.
 - The room configuration schema and create mutation are deployed to Convex production.
