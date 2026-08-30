@@ -35,8 +35,22 @@ export const sendBom = action({
     const from = process.env.RESEND_FROM_EMAIL;
 
     if (!apiKey || !from) {
-      await ctx.runMutation(internal.emailLogs.record, { email, status: "failed", errorMessage: "Resend environment variables are missing" });
-      throw new Error("Email delivery is not configured yet. Add the Resend settings and try again.");
+      const missingVariables = [
+        !apiKey ? "RESEND_API_KEY" : null,
+        !from ? "RESEND_FROM_EMAIL" : null,
+      ].filter((name): name is string => Boolean(name));
+      const errorMessage = `Email delivery is not configured. Missing Convex production variable${missingVariables.length === 1 ? "" : "s"}: ${missingVariables.join(", ")}.`;
+
+      await ctx.runMutation(internal.emailLogs.record, {
+        email,
+        status: "failed",
+        errorMessage,
+      });
+      console.error(JSON.stringify({
+        event: "bom_email_configuration_error",
+        missingVariables,
+      }));
+      throw new Error(errorMessage);
     }
 
     const result = configureRoom(args);

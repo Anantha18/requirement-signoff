@@ -7,7 +7,8 @@ describe("BOM email", () => {
     const result = configureRoom({ lengthFt: 20, widthFt: 14, seats: 10, mode: "native" });
     const email = buildBomEmail({ result, platform: "Microsoft Teams", deployment: "Appliance-based", additionalDevices: ["Room scheduling device"], supportLevel: "High" });
     expect(email.html).toContain("Native room compute and camera kit");
-    expect(email.html).toContain("₹4,75,000 – ₹9,55,000");
+    expect(email.html).toContain("₹5,35,000 – ₹10,05,000");
+    expect(email.html).toContain("₹90,000 – ₹1,20,000");
     expect(email.html).toContain("Room scheduling device");
     expect(email.text).toContain("High coverage");
   });

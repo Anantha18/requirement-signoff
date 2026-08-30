@@ -48,8 +48,8 @@ describe("room configuration email request", () => {
       seats: 10,
       mode: "native",
       displaySizeInches: 80,
-      totalLow: 475_000,
-      totalHigh: 955_000,
+      totalLow: 445_000,
+      totalHigh: 885_000,
     });
     expect(saved?.items).toEqual(response.items);
   });

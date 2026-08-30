@@ -22,7 +22,7 @@ const pbMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Power Bridge AV Room Configurator",
+  title: "AV Room Configurator",
   description: "Get an indicative AV bill of materials and budget band for one meeting room.",
 };
 

@@ -1,7 +1,8 @@
 import type { BomItem, RoomConfiguration } from "../../convex/configurator";
+export { optionalDevices, type OptionalDeviceId } from "../../convex/optionalDevices";
 
 export type Platform = "microsoft_teams" | "zoom" | "google_meet" | "byod";
-export type Deployment = "appliance" | "pc" | "byod";
+export type Deployment = "appliance" | "pc" | "byod" | "not_sure";
 export type SupportLevel = "low" | "medium" | "high";
 export type SupportAnswers = {
   qualifiedSupport: "yes" | "no";
@@ -11,18 +12,10 @@ export type SupportAnswers = {
   replacementTime: "next_business_day" | "48_hours" | "4_hours";
 };
 
-export type OptionalDeviceId = "room_scheduling" | "whiteboard_camera" | "additional_connectivity";
-
-export const optionalDevices: Array<{ id: OptionalDeviceId; name: string; description: string }> = [
-  { id: "room_scheduling", name: "Room scheduling device", description: "Shows availability outside the room." },
-  { id: "whiteboard_camera", name: "Whiteboard camera", description: "Shares a physical whiteboard with remote participants." },
-  { id: "additional_connectivity", name: "Additional connectivity device", description: "Adds connection options beyond the recommended core system." },
-];
-
 export const supportQuestions = [
   { key: "qualifiedSupport", title: "Does the customer have qualified AV or IT support?", options: [["yes", "Yes"], ["no", "No"]] },
   { key: "operationalSupport", title: "What ongoing operational support is needed?", options: [["self_managed", "Customer-managed"], ["business_hours", "Help during business hours"], ["managed", "Fully managed support"]] },
-  { key: "troubleshooting", title: "Who will handle troubleshooting?", options: [["customer", "Customer team"], ["partner", "AV partner"], ["provider", "Support provider"]] },
+  { key: "troubleshooting", title: "Who will handle troubleshooting?", options: [["customer", "Customer team"], ["partner", "AV partner"]] },
   { key: "supportHours", title: "What support hours are required?", options: [["business", "Business hours"], ["extended", "Extended hours"], ["24x7", "24 × 7"]] },
   { key: "replacementTime", title: "How quickly must faulty equipment be replaced?", options: [["48_hours", "Within 48 hours"], ["next_business_day", "Next business day"], ["4_hours", "Within 4 hours"]] },
 ] as const;

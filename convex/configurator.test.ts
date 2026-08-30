@@ -44,6 +44,16 @@ describe("configureRoom", () => {
         expect.objectContaining({ name: "Touch room controller" }),
       ]),
     );
+    expect(result.items.some((item) => item.name === "Expansion microphone")).toBe(false);
+  });
+
+  it("adds the expansion microphone when a medium room is longer than 20 feet", () => {
+    const result = configureRoom({ lengthFt: 21, widthFt: 14, seats: 10, mode: "native" });
+
+    expect(result.tier).toBe("medium");
+    expect(result.items).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: "Expansion microphone" }),
+    ]));
   });
 
   it("uses the larger tier when seats exceed the room-area tier", () => {

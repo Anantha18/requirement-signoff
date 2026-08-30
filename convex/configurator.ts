@@ -75,13 +75,16 @@ function smallRoom(mode: RoomMode, displaySizeInches: number): BomItem[] {
   ];
 }
 
-function mediumRoom(mode: RoomMode, displaySizeInches: number): BomItem[] {
+function mediumRoom(mode: RoomMode, displaySizeInches: number, longestSideFt: number): BomItem[] {
   const common = [displayItem(displaySizeInches)];
+  const needsExpansionMicrophone = longestSideFt > 20;
 
   if (mode === "byod") {
     return [
       ...common,
-      item({ name: "USB video bar with expansion microphone", category: "Video", quantity: 1, unitLow: 150_000, unitHigh: 300_000 }),
+      item(needsExpansionMicrophone
+        ? { name: "USB video bar with expansion microphone", category: "Video", quantity: 1, unitLow: 150_000, unitHigh: 300_000 }
+        : { name: "USB video bar", category: "Video", quantity: 1, unitLow: 75_000, unitHigh: 160_000 }),
       item({ name: "USB-C conferencing dock", category: "Connectivity", quantity: 1, unitLow: 25_000, unitHigh: 55_000 }),
       item({ name: "Mounting, cabling and installation kit", category: "Infrastructure", quantity: 1, unitLow: 30_000, unitHigh: 75_000 }),
     ];
@@ -91,7 +94,7 @@ function mediumRoom(mode: RoomMode, displaySizeInches: number): BomItem[] {
     ...common,
     item({ name: "Native room compute and camera kit", category: "Video", quantity: 1, unitLow: 250_000, unitHigh: 500_000 }),
     item({ name: "Touch room controller", category: "Control", quantity: 1, unitLow: 45_000, unitHigh: 90_000 }),
-    item({ name: "Expansion microphone", category: "Audio", quantity: 1, unitLow: 30_000, unitHigh: 70_000 }),
+    ...(needsExpansionMicrophone ? [item({ name: "Expansion microphone", category: "Audio", quantity: 1, unitLow: 30_000, unitHigh: 70_000 })] : []),
     item({ name: "Mounting, cabling and installation kit", category: "Infrastructure", quantity: 1, unitLow: 30_000, unitHigh: 75_000 }),
   ];
 }
@@ -131,7 +134,7 @@ export function configureRoom({
   const areaSqFt = lengthFt * widthFt;
   const tier = roomTier(areaSqFt, seats);
   const displaySizeInches = presentationDisplaySize(lengthFt);
-  const items = tier === "small" ? smallRoom(mode, displaySizeInches) : tier === "medium" ? mediumRoom(mode, displaySizeInches) : largeRoom(mode, seats, displaySizeInches);
+  const items = tier === "small" ? smallRoom(mode, displaySizeInches) : tier === "medium" ? mediumRoom(mode, displaySizeInches, Math.max(lengthFt, widthFt)) : largeRoom(mode, seats, displaySizeInches);
 
   return {
     tier,

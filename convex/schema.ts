@@ -78,6 +78,7 @@ export const deploymentValidator = v.union(
   v.literal("appliance"),
   v.literal("pc"),
   v.literal("byod"),
+  v.literal("not_sure"),
 );
 
 export const supportLevelValidator = v.union(
@@ -102,6 +103,31 @@ export const bomItemValidator = v.object({
   unitHigh: v.number(),
   low: v.number(),
   high: v.number(),
+});
+
+export const leadBomItemValidator = v.object({
+  name: v.string(),
+  category: v.string(),
+  quantity: v.number(),
+  unitLow: v.optional(v.number()),
+  unitHigh: v.optional(v.number()),
+  low: v.optional(v.number()),
+  high: v.optional(v.number()),
+  optional: v.boolean(),
+});
+
+export const leadConfigurationValidator = v.object({
+  lengthFt: v.number(),
+  widthFt: v.number(),
+  seats: v.number(),
+  mode: roomModeValidator,
+  companyName: v.optional(v.string()),
+  contactNumber: v.optional(v.string()),
+  platform: configuratorPlatformValidator,
+  deployment: deploymentValidator,
+  selectedAccessories: v.array(v.string()),
+  additionalDevices: v.array(v.string()),
+  supportAnswers: supportAnswersValidator,
 });
 
 const briefFields = {
@@ -164,4 +190,15 @@ export default defineSchema({
     errorMessage: v.optional(v.string()),
     attemptedAt: v.number(),
   }).index("by_email", ["email"]),
+  leads: defineTable({
+    email: v.string(),
+    configuration: leadConfigurationValidator,
+    bom: v.array(leadBomItemValidator),
+    totalLow: v.number(),
+    totalHigh: v.number(),
+    supportLevel: supportLevelValidator,
+    createdAt: v.number(),
+  })
+    .index("by_email", ["email"])
+    .index("by_createdAt", ["createdAt"]),
 });

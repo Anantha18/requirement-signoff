@@ -14,6 +14,8 @@ import type * as configurations from "../configurations.js";
 import type * as configurator from "../configurator.js";
 import type * as emailLogs from "../emailLogs.js";
 import type * as emails from "../emails.js";
+import type * as leads from "../leads.js";
+import type * as optionalDevices from "../optionalDevices.js";
 
 import type {
   ApiFromModules,
@@ -28,6 +30,8 @@ declare const fullApi: ApiFromModules<{
   configurator: typeof configurator;
   emailLogs: typeof emailLogs;
   emails: typeof emails;
+  leads: typeof leads;
+  optionalDevices: typeof optionalDevices;
 }>;
 
 /**
