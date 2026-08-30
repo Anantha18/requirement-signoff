@@ -15,7 +15,7 @@ const consoleMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Video Conferencing - Decoded & Simplified",
+  title: "Video Conferencing - Room Configurator",
   description: "Get an indicative AV bill of materials and budget band for one meeting room.",
 };
 

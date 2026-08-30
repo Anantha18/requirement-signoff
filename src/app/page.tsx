@@ -110,7 +110,7 @@ export default function Home() {
     <main className={styles.shell}>
       <header className={styles.header}>
         <div className={styles.mark} aria-hidden="true"><span/><span/><span/></div>
-        <p className={styles.productName}>&lt;VIDEO CONFERENCING - DECODED &amp; SIMPLIFIED&gt;</p>
+        <p className={styles.productName}>VIDEO CONFERENCING - ROOM CONFIGURATOR</p>
       </header>
 
       <section className={styles.workspace}>
