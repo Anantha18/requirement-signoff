@@ -523,6 +523,7 @@ M1 — one ugly complete flow.
 - Same-page BOM output with item, category, quantity, price range and total budget band.
 - Optional company and contact-number capture, plus an Epson 6× presentation-rule display recommendation.
 - A worked 20 × 14 ft, 10-seat Native example appears before the form; email is requested only after the visitor sees their own BOM.
+- The live flow is now an eight-step Power Bridge configurator; missing compatibility, optional-device pricing and commercial AMC data are shown as “To be confirmed”.
 - Convex project with development and production deployments.
 - Vercel production project with Convex production URLs configured.
 - Convex `roomConfigurations` and `firstUseEvents` persistence with indexed lookup fields.

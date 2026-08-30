@@ -67,6 +67,33 @@ export const roomTierValidator = v.union(
   v.literal("large"),
 );
 
+export const configuratorPlatformValidator = v.union(
+  v.literal("microsoft_teams"),
+  v.literal("zoom"),
+  v.literal("google_meet"),
+  v.literal("byod"),
+);
+
+export const deploymentValidator = v.union(
+  v.literal("appliance"),
+  v.literal("pc"),
+  v.literal("byod"),
+);
+
+export const supportLevelValidator = v.union(
+  v.literal("low"),
+  v.literal("medium"),
+  v.literal("high"),
+);
+
+export const supportAnswersValidator = v.object({
+  qualifiedSupport: v.union(v.literal("yes"), v.literal("no")),
+  operationalSupport: v.union(v.literal("self_managed"), v.literal("business_hours"), v.literal("managed")),
+  troubleshooting: v.union(v.literal("customer"), v.literal("partner"), v.literal("provider")),
+  supportHours: v.union(v.literal("business"), v.literal("extended"), v.literal("24x7")),
+  replacementTime: v.union(v.literal("next_business_day"), v.literal("48_hours"), v.literal("4_hours")),
+});
+
 export const bomItemValidator = v.object({
   name: v.string(),
   category: v.string(),
@@ -102,6 +129,12 @@ export default defineSchema({
     email: v.string(),
     companyName: v.optional(v.string()),
     contactNumber: v.optional(v.string()),
+    platform: v.optional(configuratorPlatformValidator),
+    deployment: v.optional(deploymentValidator),
+    selectedAccessories: v.optional(v.array(v.string())),
+    additionalDevices: v.optional(v.array(v.string())),
+    supportAnswers: v.optional(supportAnswersValidator),
+    supportLevel: v.optional(supportLevelValidator),
     lengthFt: v.number(),
     widthFt: v.number(),
     seats: v.number(),
@@ -124,4 +157,11 @@ export default defineSchema({
     .index("by_briefId", ["briefId"])
     .index("by_configurationId", ["configurationId"])
     .index("by_email", ["email"]),
+  emailSendAttempts: defineTable({
+    email: v.string(),
+    status: v.union(v.literal("accepted"), v.literal("failed")),
+    providerMessageId: v.optional(v.string()),
+    errorMessage: v.optional(v.string()),
+    attemptedAt: v.number(),
+  }).index("by_email", ["email"]),
 });

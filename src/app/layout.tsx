@@ -1,21 +1,28 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Manrope } from "next/font/google";
+import { Archivo, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { ConvexClientProvider } from "./convex-client-provider";
 
-const consoleSans = Manrope({
-  variable: "--font-console-sans",
+const pbDisplay = Archivo({
+  variable: "--font-pb-display",
   subsets: ["latin"],
+  weight: ["600", "700", "800", "900"],
 });
 
-const consoleMono = IBM_Plex_Mono({
-  variable: "--font-console-mono",
+const pbSans = IBM_Plex_Sans({
+  variable: "--font-pb-sans",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const pbMono = IBM_Plex_Mono({
+  variable: "--font-pb-mono",
   subsets: ["latin"],
   weight: ["400", "600"],
 });
 
 export const metadata: Metadata = {
-  title: "Video Conferencing - Room Configurator",
+  title: "Power Bridge AV Room Configurator",
   description: "Get an indicative AV bill of materials and budget band for one meeting room.",
 };
 
@@ -23,7 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${consoleSans.variable} ${consoleMono.variable}`}
+      className={`${pbDisplay.variable} ${pbSans.variable} ${pbMono.variable}`}
     >
       <body><ConvexClientProvider>{children}</ConvexClientProvider></body>
     </html>

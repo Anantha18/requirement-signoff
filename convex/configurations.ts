@@ -1,7 +1,15 @@
 import { v } from "convex/values";
 import { mutation } from "./_generated/server";
 import { configureRoom } from "./configurator";
-import { bomItemValidator, roomModeValidator, roomTierValidator } from "./schema";
+import {
+  bomItemValidator,
+  configuratorPlatformValidator,
+  deploymentValidator,
+  roomModeValidator,
+  roomTierValidator,
+  supportAnswersValidator,
+  supportLevelValidator,
+} from "./schema";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -14,6 +22,12 @@ export const create = mutation({
     email: v.string(),
     companyName: v.optional(v.string()),
     contactNumber: v.optional(v.string()),
+    platform: v.optional(configuratorPlatformValidator),
+    deployment: v.optional(deploymentValidator),
+    selectedAccessories: v.optional(v.array(v.string())),
+    additionalDevices: v.optional(v.array(v.string())),
+    supportAnswers: v.optional(supportAnswersValidator),
+    supportLevel: v.optional(supportLevelValidator),
   },
   returns: v.object({
     configurationId: v.id("roomConfigurations"),
@@ -37,6 +51,9 @@ export const create = mutation({
     }
     if (companyName && companyName.length > 120) throw new Error("Company name is too long");
     if (contactNumber && !/^[+()\d\s-]{7,20}$/.test(contactNumber)) throw new Error("Enter a valid contact number");
+    if ((args.selectedAccessories?.length ?? 0) > 10 || (args.additionalDevices?.length ?? 0) > 10) {
+      throw new Error("Too many optional items selected");
+    }
 
     const result = configureRoom(args);
     const configurationId = await ctx.db.insert("roomConfigurations", {

@@ -9,3 +9,4 @@
 - 2026-08-29: A new builder can now read a plain-English record of how this project went from an idea to a live URL.
 - 2026-08-30: A visitor can now inspect a worked 10-seat BOM, calculate without email, then save the result through the post-BOM email step.
 - 2026-08-30: Visitors now see “VIDEO CONFERENCING - ROOM CONFIGURATOR” as the product headline.
+- 2026-08-30: A visitor can now complete an eight-step Power Bridge room configuration, select optional devices and support coverage, and request a provider-confirmed BOM email.

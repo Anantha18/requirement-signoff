@@ -8,9 +8,12 @@
  * @module
  */
 
+import type * as bomEmail from "../bomEmail.js";
 import type * as briefs from "../briefs.js";
 import type * as configurations from "../configurations.js";
 import type * as configurator from "../configurator.js";
+import type * as emailLogs from "../emailLogs.js";
+import type * as emails from "../emails.js";
 
 import type {
   ApiFromModules,
@@ -19,9 +22,12 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  bomEmail: typeof bomEmail;
   briefs: typeof briefs;
   configurations: typeof configurations;
   configurator: typeof configurator;
+  emailLogs: typeof emailLogs;
+  emails: typeof emails;
 }>;
 
 /**
