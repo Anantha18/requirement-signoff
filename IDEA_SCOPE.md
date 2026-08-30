@@ -522,6 +522,7 @@ M1 — one ugly complete flow.
 - Deterministic small, medium and large room rules with indicative INR price bands.
 - Same-page BOM output with item, category, quantity, price range and total budget band.
 - Optional company and contact-number capture, plus an Epson 6× presentation-rule display recommendation.
+- A worked 20 × 14 ft, 10-seat Native example appears before the form; email is requested only after the visitor sees their own BOM.
 - Convex project with development and production deployments.
 - Vercel production project with Convex production URLs configured.
 - Convex `roomConfigurations` and `firstUseEvents` persistence with indexed lookup fields.
